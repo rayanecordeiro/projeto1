@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     #Para a API - configurações para o Django REST Framework e para o Simple JWT
     'rest_framework', 
     'rest_framework_simplejwt',
+    'drf_yasg',
 ]
 
 #Para a API
