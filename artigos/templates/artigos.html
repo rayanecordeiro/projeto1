@@ -1,0 +1,68 @@
+<h1> ARTIGOS </h1>
+<h2>Pesquisar por filtro</h2>
+<form method="GET">
+    {{ search_form.as_p }}
+    <button type="submit">Buscar</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Titulo</th>
+            <th scope="col">Autores</th>
+            <th scope="col">Revista</th>
+            <th scope="col">Palavras-chaves</th>
+            <th scope="col">Ano</th>
+            <th scope="col">Resumo</th>
+            <th scope="col">Abstract</th>
+            <th scope="col">Arquivo</th>
+            <th scope="col">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for e in page_obj %}
+        <tr>
+            <td>{{ e.titulo }}</td>
+            <td>{{ e.autores }}</td>
+            <td>{{ e.revista }}</td>
+            <td>{{ e.palavras_chave }}</td>
+            <td>{{ e.ano }}</td>
+            <td>{{ e.resumo }}</td>
+            <td>{{ e.abstract }}</td> 
+            <td>{{ e.arquivo }}</td>
+            <td>
+                <!-- Botão para excluir o artigo -->
+                <form method="POST" action="{% url 'excluir' e.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este artigo?');">
+                        Excluir
+                    </button>
+                </form>
+                <form method="POST" action="{% url 'modificar' e.id %}">
+                    {% csrf_token %}
+                    <a href="{% url 'modificar' e.id %}" class="btn btn-warning">Modificar</a>
+                </form>
+                
+            </td>    
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; primeira</a>
+            <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+        {% endif %}
+
+        <span class="current">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">próxima</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+        {% endif %}
+    </span>
+</div>

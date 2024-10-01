@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1> EQUIPE </h1>
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nome</th>
+      <th scope="col">Formacao academica</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Lattes</th>
+      <th scope="col">Linkedin</th>
+      <th scope="col">Github</th>
+      <th scope="col">Nivel de acesso</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in lista %}
+    <tr>
+      <td>{{ e.nome }}</td>
+      <td>{{ e.get_formacao_academica_display }}</td>
+      <td>{{ e.email }}  </td>
+      <td> {{ e.lattes }} </td>
+      <td> {{ e.linkedin }} </td>
+      <td> {{ e.github }} </td>
+      <td>{{ e.get_nivel_acesso_display }} </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
